@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="GlobalX Currency Converter — fast, offline-ready currency conversion with history tracking and dark/light mode." />
+  <meta name="author" content="Nkrumah Samuel Kojo" />
+
+  <!-- Open Graph (for GitHub/social previews) -->
+  <meta property="og:title" content="GlobalX Currency Converter" />
+  <meta property="og:description" content="A clean, responsive currency converter built with vanilla HTML, CSS, and JavaScript." />
+  <meta property="og:type" content="website" />
+
+  <title>GlobalX Currency Converter</title>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💱</text></svg>" />
+</head>
+
+<body>
+
+  <!-- ========== HEADER / NAVBAR ========== -->
+  <header class="header">
+    <nav class="nav">
+      <div class="brand">
+        <span class="brand-icon">💱</span>
+        <span class="brand-name">GlobalX</span>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#converter" class="nav-link active">Converter</a></li>
+        <li><a href="#history" class="nav-link">History</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+      </ul>
+
+      <button id="theme-toggle" class="btn icon-btn" aria-label="Toggle dark/light mode" title="Toggle theme">
+        🌙
+      </button>
+    </nav>
+  </header>
+
+  <!-- ========== MAIN ========== -->
+  <main class="container">
+
+    <!-- Hero -->
+    <div class="hero">
+      <h1 class="hero-title">Currency Converter</h1>
+      <p class="hero-subtitle">Fast, simple, and offline-ready. No hidden fees, no sign-up required.</p>
+    </div>
+
+    <!-- Converter Card -->
+    <section id="converter" class="card converter-card">
+      <div class="card-header">
+        <h2 class="card-title">Convert</h2>
+        <span class="badge">Static Rates · Nov 2025</span>
+      </div>
+
+      <div class="converter-grid">
+        <!-- Amount -->
+        <div class="field">
+          <label for="amount">Amount</label>
+          <input
+            type="number"
+            id="amount"
+            value="100"
+            min="0.01"
+            step="any"
+            placeholder="Enter amount"
+            aria-label="Amount to convert"
+          />
+        </div>
+
+        <!-- From Currency -->
+        <div class="field">
+          <label for="from-currency">From</label>
+          <select id="from-currency" aria-label="Convert from currency">
+            <option value="USD">🇺🇸 USD — US Dollar</option>
+            <option value="EUR">🇪🇺 EUR — Euro</option>
+            <option value="GBP">🇬🇧 GBP — British Pound</option>
+            <option value="GHS">🇬🇭 GHS — Ghanaian Cedi</option>
+            <option value="JPY">🇯🇵 JPY — Japanese Yen</option>
+            <option value="CNY">🇨🇳 CNY — Chinese Yuan</option>
+          </select>
+        </div>
+
+        <!-- Swap Button -->
+        <div class="swap-wrapper">
+          <button id="swap" class="btn swap-btn" aria-label="Swap currencies" title="Swap currencies">⇄</button>
+        </div>
+
+        <!-- To Currency -->
+        <div class="field">
+          <label for="to-currency">To</label>
+          <select id="to-currency" aria-label="Convert to currency">
+            <option value="GHS">🇬🇭 GHS — Ghanaian Cedi</option>
+            <option value="USD">🇺🇸 USD — US Dollar</option>
+            <option value="EUR">🇪🇺 EUR — Euro</option>
+            <option value="GBP">🇬🇧 GBP — British Pound</option>
+            <option value="JPY">🇯🇵 JPY — Japanese Yen</option>
+            <option value="CNY">🇨🇳 CNY — Chinese Yuan</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button id="convert" class="btn btn-primary">Convert</button>
+        <button id="clear-history" class="btn btn-ghost">🗑 Clear History</button>
+      </div>
+
+      <!-- Result -->
+      <div class="result-box" id="result-box" aria-live="polite">
+        <p class="result-placeholder" id="result-text">Enter an amount and press Convert</p>
+        <p class="result-rate" id="rate-info"></p>
+        <p class="result-timestamp" id="timestamp"></p>
+      </div>
+    </section>
+
+    <!-- History Card -->
+    <section id="history" class="card">
+      <div class="card-header">
+        <h2 class="card-title">Conversion History</h2>
+        <span class="history-count" id="history-count">0 entries</span>
+      </div>
+
+      <div class="table-wrapper">
+        <table aria-label="Conversion history">
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>From</th>
+              <th>To</th>
+              <th>Result</th>
+              <th>Rate</th>
+              <th>Date &amp; Time</th>
+            </tr>
+          </thead>
+          <tbody id="history-body">
+            <tr id="empty-row">
+              <td colspan="6" class="empty-msg">No conversions yet. Try converting something above!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- About Card -->
+    <section id="about" class="card about-card">
+      <div class="card-header">
+        <h2 class="card-title">About This Project</h2>
+      </div>
+      <p>
+        <strong>GlobalX Currency Converter</strong> is a lightweight, client-side web app for quick currency
+        conversion. It uses static exchange rates (Nov 2025) and requires no internet connection to run.
+      </p>
+      <ul class="about-list">
+        <li>💡 Built with vanilla HTML, CSS, and JavaScript — zero dependencies</li>
+        <li>🌙 Dark &amp; light theme toggle</li>
+        <li>📜 Conversion history with fade-in animations</li>
+        <li>📱 Fully responsive (desktop &amp; mobile)</li>
+        <li>♿ Accessible markup with ARIA labels</li>
+      </ul>
+      <p class="about-meta">
+        Developed by <strong>Nkrumah Samuel Kojo</strong> · PBSE304 · Pentecost University · Nov 2025
+      </p>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <p>
+      &copy; 2025 <strong>GlobalX Currency Converter</strong> &mdash;
+      Built by <a href="https://github.com/SamuelNkrumah" target="_blank" rel="noopener">Nkrumah Samuel Kojo</a>
+    </p>
+    <p class="footer-note">Exchange rates are static (Nov 2025) and for demonstration purposes only.</p>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
